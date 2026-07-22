@@ -39,7 +39,3 @@ The main objective of this project is to help users understand how well their re
 B.Tech Computer Science and Engineering
 
 MIT Chhatrapati Sambhajinagar
-
-B.Tech Computer Science and Engineering
-
-MIT Chhatrapati Sambhajinagar
