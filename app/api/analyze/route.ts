@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as PdfParse from "pdf-parse-new";
 import ai from "@/lib/gemini";
+
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,8 +17,27 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    const result = await PdfParse.default(buffer);
+    // Load PDF
+    const pdf = await pdfjsLib.getDocument({
+      data: new Uint8Array(buffer),
+    }).promise;
 
+    let text = "";
+
+    // Extract text from every page
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+
+      const content = await page.getTextContent();
+
+      const pageText = content.items
+        .map((item: any) => ("str" in item ? item.str : ""))
+        .join(" ");
+
+      text += pageText + "\n";
+    }
+
+    // Gemini Analysis
     const response = await ai.models.generateContent({
       model: "gemini-flash-latest",
       contents: `
@@ -33,7 +53,7 @@ Analyze this resume and provide:
 6. Suggestions for Improvement
 
 Resume:
-${result.text}
+${text}
       `,
     });
 
@@ -41,7 +61,6 @@ ${result.text}
       success: true,
       message: response.text,
     });
-
   } catch (error: any) {
     console.error(error);
 

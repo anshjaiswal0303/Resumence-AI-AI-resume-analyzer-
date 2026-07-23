@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Resume Analyzer
 
-## Getting Started
+## Overview
 
-First, run the development server:
+AI Resume Analyzer is a web application that analyzes resumes using Artificial Intelligence. Users can upload a PDF resume and receive an estimated ATS score, resume summary, technical skills, strengths, weaknesses, and suggestions for improvement using Google Gemini AI.
+
+The objective of this project is to help job seekers improve their resumes before applying for jobs.
+
+---
+
+## Features
+
+- Upload resumes in PDF format
+- AI-powered resume analysis
+- Estimated ATS Score
+- Resume Summary
+- Technical Skills Detection
+- Strengths Analysis
+- Weaknesses Analysis
+- Resume Improvement Suggestions
+- Responsive and modern user interface
+
+---
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Google Gemini AI
+- PDF.js
+- Git & GitHub
+- Vercel
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/anshjaiswal0303/Ai-resume-analyzer.git
+```
+
+Move into the project folder:
+
+```bash
+cd Ai-resume-analyzer
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file and add your Gemini API key:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+GEMINI_API_KEY=YOUR_API_KEY
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Future Improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Resume PDF report download
+- Dark mode
+- Resume history
+- Multiple resume comparison
+- Job description matching
+- Keyword optimization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Author
+
+**Ansh Abhay Jaiswal**
+
+B.Tech Computer Science and Engineering
+
+MIT Chhatrapati Sambhajinagar
