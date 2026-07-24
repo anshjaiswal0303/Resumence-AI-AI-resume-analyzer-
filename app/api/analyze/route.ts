@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getDocumentProxy, extractText } from "unpdf";
 import ai from "@/lib/gemini";
-
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,56 +9,49 @@ export async function POST(req: NextRequest) {
 
     if (!file) {
       return NextResponse.json(
-        { success: false, message: "No file uploaded." },
+        {
+          success: false,
+          message: "No resume uploaded.",
+        },
         { status: 400 }
       );
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const bytes = new Uint8Array(await file.arrayBuffer());
 
     // Load PDF
-    const pdf = await pdfjsLib.getDocument({
-      data: new Uint8Array(buffer),
-    }).promise;
+    const pdf = await getDocumentProxy(bytes);
 
-    let text = "";
+    // Extract all text
+    const { text } = await extractText(pdf, {
+      mergePages: true,
+    });
 
-    // Extract text from every page
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
+    const prompt = `
+You are an expert ATS Resume Analyzer.
 
-      const content = await page.getTextContent();
+Analyze the following resume and return the result in this exact format.
 
-      const pageText = content.items
-        .map((item: any) => ("str" in item ? item.str : ""))
-        .join(" ");
-
-      text += pageText + "\n";
-    }
-
-    // Gemini Analysis
-    const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
-      contents: `
-You are an ATS Resume Analyzer.
-
-Analyze this resume and provide:
-
-1. ATS Score (out of 100)
-2. Resume Summary
-3. Technical Skills
-4. Strengths
-5. Weaknesses
-6. Suggestions for Improvement
+ATS Score:
+Resume Summary:
+Technical Skills:
+Strengths:
+Weaknesses:
+Suggestions for Improvement:
 
 Resume:
+
 ${text}
-      `,
+`;
+
+    const result = await ai.models.generateContent({
+      model: "gemini-flash-latest",
+      contents: prompt,
     });
 
     return NextResponse.json({
       success: true,
-      message: response.text,
+      message: result.text,
     });
   } catch (error: any) {
     console.error(error);
