@@ -8,7 +8,7 @@ export default function Home() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-blue-700">
-            🤖 AI Resume Analyzer
+            🤖 Resumence AI (AI resume analyzer)
           </h1>
 
           <span className="text-gray-500 text-sm">
@@ -100,7 +100,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-8 text-gray-500 text-sm">
-        Built with ❤️ using Next.js, Tailwind CSS & Gemini AI
+        Made by Ansh Abhay Jaiswal | using Next.js, Tailwind CSS & Gemini AI
       </footer>
 
     </main>
