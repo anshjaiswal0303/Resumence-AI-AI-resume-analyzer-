@@ -42,3 +42,6 @@ The objective of this project is to help job seekers improve their resumes befor
 B.Tech Computer Science and Engineering
 
 MIT Chhatrapati Sambhajinagar
+## Development
+
+This project is continuously improving through new features and updates.
